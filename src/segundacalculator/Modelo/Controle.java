@@ -18,12 +18,14 @@ import java.io.IOException;
  * @author Dell-9BQM7S1
  */
 public class Controle{
+    
     private String Pedido="";
+    
     
     public void controle(String nome,String produto,String rua, String numerocasa, String cidade, Double valortotal) throws IOException{
      Validacao valida=new Validacao();
      valida.getvalidacao(nome, produto, rua, numerocasa, cidade, valortotal);
-     String content = nome+","+produto+","+rua+","+numerocasa+","+cidade+","+valortotal.toString()+"\r\n";
+     String content = nome+","+produto+","+rua+","+numerocasa+","+cidade+","+valortotal.toString()+"0"+"\r\n";
 
             // Cria arquivo
             File file = new File("teste.txt");
@@ -46,9 +48,12 @@ public class Controle{
         FileReader ler = new FileReader("teste.txt");
             BufferedReader reader = new BufferedReader(ler);  
             String linha;
+            this.Pedido = "";
             while( (linha = reader.readLine()) != null ){
-                this.Pedido += linha+"+";
+                this.Pedido = this.Pedido + linha+";";
             }
+            
+            
     }
 
     public String getPedido()

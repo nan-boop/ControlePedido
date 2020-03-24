@@ -6,6 +6,7 @@
 package segundacalculator.Apresetacao;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import segundacalculator.Modelo.Controle;
@@ -20,9 +21,46 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
     /**
      * Creates new form FrmAlmoxerifado
      */
+    
+    private Controle cont;
+    private String txapedidos = "";
+    
     public FrmAlmoxerifado()
     {
         initComponents();
+        
+        Controle controle = new Controle();
+        
+        this.cont = controle;
+        
+        
+        
+        try
+        {
+            this.cont.lerarquivo();
+            String pedidos = this.cont.getPedido();
+            
+
+            String[] pedido = pedidos.split(";");
+            
+            for( int i = 0; i < pedido.length; i++)
+            {
+                String[] campos = pedido[i].split(",");
+                this.txapedidos = "Nome: " + campos[0] + "\r\n" +"Produto: " + campos[1];
+                System.out.println(this.txapedidos);
+                System.out.println(Arrays.toString(campos));
+                txaPedidos.setText(this.txapedidos);
+                
+            }
+            
+            
+            
+            this.txaPedidos.setText(pedidos);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(FrmAlmoxerifado.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -37,6 +75,8 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
 
         btnProxPedido = new javax.swing.JButton();
         lblPedido = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaPedidos = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,17 +89,23 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
             }
         });
 
+        txaPedidos.setColumns(20);
+        txaPedidos.setRows(5);
+        jScrollPane1.setViewportView(txaPedidos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 225, Short.MAX_VALUE)
                 .addComponent(btnProxPedido)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addGap(147, 147, 147))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -67,9 +113,11 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(btnProxPedido)
-                .addGap(100, 100, 100))
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -77,17 +125,15 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
 
     private void btnProxPedidoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnProxPedidoActionPerformed
     {//GEN-HEADEREND:event_btnProxPedidoActionPerformed
-     Controle controle=new Controle();
         try
         {
-            controle.lerarquivo();
-            String pedidos=controle.getPedido();
-            this.lblPedido.setText(pedidos);
-        }
-        catch (IOException ex)
+            this.cont.lerarquivo();
+        } catch (IOException ex)
         {
             Logger.getLogger(FrmAlmoxerifado.class.getName()).log(Level.SEVERE, null, ex);
         }
+        String pedidos = this.cont.getPedido();
+         this.txaPedidos.setText(pedidos);
     }//GEN-LAST:event_btnProxPedidoActionPerformed
 
     /**
@@ -141,6 +187,8 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProxPedido;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPedido;
+    private javax.swing.JTextArea txaPedidos;
     // End of variables declaration//GEN-END:variables
 }
