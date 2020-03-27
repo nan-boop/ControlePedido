@@ -189,25 +189,57 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
 
     private void btnProxPedidoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnProxPedidoActionPerformed
     {//GEN-HEADEREND:event_btnProxPedidoActionPerformed
-       if (this.Pedidoatual<this.QtPedido && this.Pedidos.get(this.Pedidoatual).get(6).equals("0") ){
-       lblNome.setText((String) this.Pedidos.get(this.Pedidoatual).get(0));
-       lblProduto.setText((String) this.Pedidos.get(this.Pedidoatual).get(1));
-       lblRua.setText((String) this.Pedidos.get(this.Pedidoatual).get(2));
-       lblNumero.setText((String) this.Pedidos.get(this.Pedidoatual).get(3));
-       lblCidade.setText((String) this.Pedidos.get(this.Pedidoatual).get(4));
-       lblValorTotal.setText((String) this.Pedidos.get(this.Pedidoatual).get(5));
-       
+       if (this.Pedidoatual<this.QtPedido)
+       {
+     
+           if(this.Pedidos.get(this.Pedidoatual).get(6).equals("0"))
+           {
+                lblNome.setText((String) this.Pedidos.get(this.Pedidoatual).get(0));
+                lblProduto.setText((String) this.Pedidos.get(this.Pedidoatual).get(1));
+                lblRua.setText((String) this.Pedidos.get(this.Pedidoatual).get(2));
+                lblNumero.setText((String) this.Pedidos.get(this.Pedidoatual).get(3));
+                lblCidade.setText((String) this.Pedidos.get(this.Pedidoatual).get(4));
+                lblValorTotal.setText((String) this.Pedidos.get(this.Pedidoatual).get(5));
+                this.Pedidos.get(this.Pedidoatual).set(6,1);
+            }
+           else
+           {
+               
+               int pedidoValido = this.Pedidoatual;
+               
+               while (this.Pedidos.get(pedidoValido).get(6).equals("1"))
+               {                   
+                   pedidoValido += 1;
+               }
+               
+               
+               
+               
+               lblNome.setText((String) this.Pedidos.get(pedidoValido).get(0));
+               lblProduto.setText((String) this.Pedidos.get(pedidoValido).get(1));
+               lblRua.setText((String) this.Pedidos.get(pedidoValido).get(2));
+               lblNumero.setText((String) this.Pedidos.get(pedidoValido).get(3));
+               lblCidade.setText((String) this.Pedidos.get(pedidoValido).get(4));
+               lblValorTotal.setText((String) this.Pedidos.get(pedidoValido).get(5));
+               this.Pedidos.get(pedidoValido).set(6,1);
+               
+               this.Pedidoatual = pedidoValido - 1;
+               System.out.println(this.Pedidoatual);
+           }
+          
       
-        
+        this.Pedidoatual+=1;
+        System.out.println(this.Pedidoatual);
        }
-       this.Pedidoatual+=1;
-       this.Pedidos.get(this.Pedidoatual).set(6,1);
+       
+       
         
     }//GEN-LAST:event_btnProxPedidoActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnFinalizarActionPerformed
     {//GEN-HEADEREND:event_btnFinalizarActionPerformed
         Arquivo arquivo=new Arquivo("teste.txt");
+       
         try
         {
             arquivo.sobrescrever();
@@ -216,6 +248,40 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
         {
             Logger.getLogger(FrmAlmoxerifado.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+            String linhas = "";
+            String linha;
+            
+            for (int i = 0; i < this.Pedidos.size(); i++)
+            {
+                
+                linha = "";
+                
+                for (int j = 0; j < Pedidos.get(i).size(); j++)
+                {
+                    linha += this.Pedidos.get(i).get(j) + ",";
+                    
+                    
+                }
+                
+                
+                linha += "\r\n";
+                linhas += linha;
+                
+            try
+            {
+                arquivo.escrever(linha);
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(FrmAlmoxerifado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+            
+            
+            
+            
+       
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**
