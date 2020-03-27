@@ -64,7 +64,22 @@ public class Arquivo
     
     public void sobrescrever() throws IOException
     {
-        escrever("");
+         // Cria arquivo
+        File file = new File(this.nome);
+
+        // Se o arquivo nao existir, ele gera
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        // Prepara para escrever no arquivo
+        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+        // Escreve e fecha arquivo
+        try (BufferedWriter bw = new BufferedWriter(fw))
+        {
+            // Escreve e fecha arquivo
+            bw.write("");
+        }
     }
     
     

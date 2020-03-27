@@ -212,9 +212,6 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
                    pedidoValido += 1;
                }
                
-               
-               
-               
                lblNome.setText((String) this.Pedidos.get(pedidoValido).get(0));
                lblProduto.setText((String) this.Pedidos.get(pedidoValido).get(1));
                lblRua.setText((String) this.Pedidos.get(pedidoValido).get(2));
@@ -224,12 +221,12 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
                this.Pedidos.get(pedidoValido).set(6,1);
                
                this.Pedidoatual = pedidoValido - 1;
-               System.out.println(this.Pedidoatual);
+               
            }
           
       
         this.Pedidoatual+=1;
-        System.out.println(this.Pedidoatual);
+        
        }
        
        
