@@ -7,9 +7,13 @@ package segundacalculator.Apresetacao;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import segundacalculator.Modelo.Arquivo;
 import segundacalculator.Modelo.Controle;
+import segundacalculator.Modelo.Pedido;
+import segundacalculator.Modelo.status;
 
 /**
  *
@@ -21,56 +25,26 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
     /**
      * Creates new form FrmAlmoxerifado
      */
-    
+    private int Pedidoatual;
+    private int QtPedido;
+    private List<List> Pedidos;
     private Controle cont;
     private String txapedidos = "";
     
-    public FrmAlmoxerifado()
+    public FrmAlmoxerifado() throws IOException
     {
+        
         initComponents();
         
-        Controle controle = new Controle();
+       Controle controle=new Controle();
+       controle.lerarquivo();
+       status status1=new status(controle.getPedido());
+       this.Pedidos=status1.validarString();
+        System.out.println(this.Pedidos.size());
+       this.QtPedido=this.Pedidos.size();
+       this.Pedidoatual=0;
+       
         
-        this.cont = controle;
-        
-        
-        
-        try
-        {
-            this.cont.lerarquivo();
-            String pedidos = this.cont.getPedido();
-            
-
-            String[] pedido = pedidos.split(";");
-            
-            for( int i = 0; i < pedido.length; i++)
-            {
-                String[] campos = pedido[i].split(",");
-                if ("0".equals(campos[6])){
-                  lblNomee.setText(campos[0]);
-                lblProduto.setText(campos[1]);
-                lblRua.setText(campos[2]);
-                lblNumero.setText(campos[3]);
-                lblCidade.setText(campos[4]);
-                lblValorTotal.setText(campos[5]);
-                break;
-               
-                }
-                
-                
-                
-                
-                
-            }
-            
-            
-            
-            
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(FrmAlmoxerifado.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -96,6 +70,7 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
         lblNumero = new javax.swing.JLabel();
         lblCidade = new javax.swing.JLabel();
         lblValorTotal = new javax.swing.JLabel();
+        btnFinalizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,6 +95,15 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
 
         jLabel5.setText("Valor Total");
 
+        btnFinalizar.setText("Finalizar Pedido");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,9 +112,6 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(151, 151, 151)
-                                .addComponent(btnProxPedido))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel5))
@@ -164,6 +145,12 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
                                 .addComponent(lblNomee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(lblValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(btnProxPedido)
+                .addGap(97, 97, 97)
+                .addComponent(btnFinalizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,9 +177,11 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addComponent(btnProxPedido)
-                .addGap(44, 44, 44))
+                .addGap(106, 106, 106)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProxPedido)
+                    .addComponent(btnFinalizar))
+                .addGap(42, 42, 42))
         );
 
         pack();
@@ -200,16 +189,34 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
 
     private void btnProxPedidoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnProxPedidoActionPerformed
     {//GEN-HEADEREND:event_btnProxPedidoActionPerformed
+       if (this.Pedidoatual<this.QtPedido && this.Pedidos.get(this.Pedidoatual).get(6).equals("0") ){
+       lblNome.setText((String) this.Pedidos.get(this.Pedidoatual).get(0));
+       lblProduto.setText((String) this.Pedidos.get(this.Pedidoatual).get(1));
+       lblRua.setText((String) this.Pedidos.get(this.Pedidoatual).get(2));
+       lblNumero.setText((String) this.Pedidos.get(this.Pedidoatual).get(3));
+       lblCidade.setText((String) this.Pedidos.get(this.Pedidoatual).get(4));
+       lblValorTotal.setText((String) this.Pedidos.get(this.Pedidoatual).get(5));
+       
+      
+        
+       }
+       this.Pedidoatual+=1;
+       this.Pedidos.get(this.Pedidoatual).set(6,1);
+        
+    }//GEN-LAST:event_btnProxPedidoActionPerformed
+
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnFinalizarActionPerformed
+    {//GEN-HEADEREND:event_btnFinalizarActionPerformed
+        Arquivo arquivo=new Arquivo("teste.txt");
         try
         {
-            this.cont.lerarquivo();
-        } catch (IOException ex)
+            arquivo.sobrescrever();
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(FrmAlmoxerifado.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String pedidos = this.cont.getPedido();
-        
-    }//GEN-LAST:event_btnProxPedidoActionPerformed
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,12 +262,20 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
         {
             public void run()
             {
-                new FrmAlmoxerifado().setVisible(true);
+                try
+                {
+                    new FrmAlmoxerifado().setVisible(true);
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(FrmAlmoxerifado.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnProxPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
