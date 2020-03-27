@@ -1,4 +1,7 @@
-asdasd,asdasd,asdasd,sad,asdas,123213.00
-asdasd,asdasd,asdasd,sad,asdas,123213.00
-asd,asd,asd,asd,asd,12321.00
-dasdasd,asdasd,asd,adasd,asdas,123123.00
+renan,queijo,bobos,0,votontim,22.0,0
+natan,aasdas,dasd,dasd,asdd,22.0,0
+ovo,aasdas,dasd,dasd,asdd,22.0,0
+asd,aasdas,dasd,dasd,asdd,22.0,0
+asdasd,asdasd,asdasd,23,adasd,22.0,0
+asdasd,asdasd,asdasd,23,adasd,22.0,0
+asdasd,asdasd,asdasd,23,adasd,22.0,0

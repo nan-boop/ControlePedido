@@ -5,6 +5,7 @@
  */
 package segundacalculator;
 
+import java.io.IOException;
 import segundacalculator.Apresetacao.FrmAlmoxerifado;
 import segundacalculator.Apresetacao.FrmPrincipal;
 
@@ -18,7 +19,7 @@ public class SegundaCalculator
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         FrmPrincipal Frmp=new FrmPrincipal();
         Frmp.setVisible(true);

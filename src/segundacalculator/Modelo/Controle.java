@@ -25,7 +25,7 @@ public class Controle{
     public void controle(String nome,String produto,String rua, String numerocasa, String cidade, Double valortotal) throws IOException{
      Validacao valida=new Validacao();
      valida.getvalidacao(nome, produto, rua, numerocasa, cidade, valortotal);
-     String content = nome+","+produto+","+rua+","+numerocasa+","+cidade+","+valortotal.toString()+"0"+"\r\n";
+     String content = nome+","+produto+","+rua+","+numerocasa+","+cidade+","+valortotal.toString()+",0"+"\r\n";
 
             // Cria arquivo
             File file = new File("teste.txt");
@@ -60,6 +60,7 @@ public class Controle{
     {
         return Pedido;
     }
+    
     
 
 }
