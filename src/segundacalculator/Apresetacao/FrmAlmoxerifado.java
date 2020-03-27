@@ -40,7 +40,7 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
        controle.lerarquivo();
        status status1=new status(controle.getPedido());
        this.Pedidos=status1.validarString();
-        System.out.println(this.Pedidos.size());
+
        this.QtPedido=this.Pedidos.size();
        this.Pedidoatual=0;
        
@@ -200,17 +200,20 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
                 lblNumero.setText((String) this.Pedidos.get(this.Pedidoatual).get(3));
                 lblCidade.setText((String) this.Pedidos.get(this.Pedidoatual).get(4));
                 lblValorTotal.setText((String) this.Pedidos.get(this.Pedidoatual).get(5));
-                this.Pedidos.get(this.Pedidoatual).set(6,1);
+                this.Pedidos.get(this.Pedidoatual).set(6,"1");
             }
            else
            {
                
                int pedidoValido = this.Pedidoatual;
                
-               while (this.Pedidos.get(pedidoValido).get(6).equals("1"))
+               while (this.Pedidos.get(pedidoValido).get(6).equals("1") && pedidoValido < this.QtPedido-1)
                {                   
                    pedidoValido += 1;
                }
+               
+               
+               if(this.Pedidos.get(this.Pedidoatual).get(6).equals("0")){
                
                lblNome.setText((String) this.Pedidos.get(pedidoValido).get(0));
                lblProduto.setText((String) this.Pedidos.get(pedidoValido).get(1));
@@ -218,8 +221,8 @@ public class FrmAlmoxerifado extends javax.swing.JFrame
                lblNumero.setText((String) this.Pedidos.get(pedidoValido).get(3));
                lblCidade.setText((String) this.Pedidos.get(pedidoValido).get(4));
                lblValorTotal.setText((String) this.Pedidos.get(pedidoValido).get(5));
-               this.Pedidos.get(pedidoValido).set(6,1);
-               
+               this.Pedidos.get(pedidoValido).set(6,"1");
+               }
                this.Pedidoatual = pedidoValido - 1;
                
            }
